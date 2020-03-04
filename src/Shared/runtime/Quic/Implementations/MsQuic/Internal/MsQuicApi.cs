@@ -236,8 +236,8 @@ namespace System.Net.Quic.Implementations.MsQuic.Internal
                 {
                     fileParams = new MsQuicNativeMethods.CertFileParams
                     {
-                        PrivateKeyFilePath = Marshal.StringToCoTaskMemUTF8(privateKeyFilePath),
-                        CertificateFilePath = Marshal.StringToCoTaskMemUTF8(certFilePath)
+                        CertificateFilePath = Marshal.StringToCoTaskMemUTF8(certFilePath),
+                        PrivateKeyFilePath = Marshal.StringToCoTaskMemUTF8(privateKeyFilePath)
                     };
 
                     unmanagedAddr = Marshal.AllocHGlobal(Marshal.SizeOf(fileParams));
@@ -246,7 +246,7 @@ namespace System.Net.Quic.Implementations.MsQuic.Internal
                     createConfigStatus = SecConfigCreateDelegate(
                         _registrationContext,
                         (uint)QUIC_SEC_CONFIG_FLAG.CERT_FILE,
-                        unmanagedAddr,
+                        certificate.Handle,
                         null,
                         IntPtr.Zero,
                         SecCfgCreateCallbackHandler);
